@@ -20,7 +20,8 @@ GLUE_OBJS = __dummy_passwd.o __direct_pwd.o __transform_errno.o __transform64_er
 	fstat.o stat.o lstat.o access.o opendir.o readdir.o rewinddir.o closedir.o lseek.o lseek64.o chdir.o mkdir.o \
 	rmdir.o link.o unlink.o getcwd.o getpid.o kill.o fork.o wait.o sbrk.o gettimeofday.o times.o ftime.o clock_getres.o clock_gettime.o clock_settime.o \
 	isatty.o symlink.o truncate.o chmod.o fchmod.o fchmodat.o pathconf.o \
-	readlink.o utime.o fchown.o getrandom.o getentropy.o getpwuid.o fsync.o getpwnam.o getuid.o geteuid.o
+	readlink.o utime.o fchown.o getrandom.o getentropy.o getpwuid.o fsync.o getpwnam.o getuid.o geteuid.o \
+	softfpm.o
 
 LOCK_OBJS = __retarget_lock_init.o __retarget_lock_acquire.o __retarget_lock_release.o __retarget_lock_try_acquire.o __retarget_lock_close.o \
 	__retarget_lock_init_recursive.o __retarget_lock_acquire_recursive.o __retarget_lock_release_recursive.o __retarget_lock_try_acquire_recursive.o __retarget_lock_close_recursive.o

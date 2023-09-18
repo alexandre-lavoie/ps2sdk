@@ -929,3 +929,166 @@ struct passwd *getpwnam(const char *name) {
 	return &__dummy_passwd;
 }
 #endif
+
+#ifdef F_softfpm
+// TODO: Implement Floating-Point Math
+
+#define FPM_NO_STUB(T, FN, ARGS)
+#define FPM_STUB(T, FN, ARGS) T FN ARGS { return 0; }
+
+FPM_STUB(float, __addsf3, (float a, float b))
+FPM_STUB(double, __adddf3, (double a, double b))
+FPM_STUB(long double, __addtf3, (long double a, long double b))
+FPM_STUB(long double, __addxf3, (long double a, long double b))
+
+FPM_STUB(float, __subsf3, (float a, float b))
+FPM_STUB(double, __subdf3, (double a, double b))
+FPM_STUB(long double, __subtf3, (long double a, long double b))
+FPM_STUB(long double, __subxf3, (long double a, long double b))
+
+FPM_STUB(float, __mulsf3, (float a, float b))
+FPM_STUB(double, __muldf3, (double a, double b))
+FPM_STUB(long double, __multf3, (long double a, long double b))
+FPM_STUB(long double, __mulxf3, (long double a, long double b))
+
+FPM_STUB(float, __divsf3, (float a, float b))
+FPM_STUB(double, __divdf3, (double a, double b))
+FPM_STUB(long double, __divtf3, (long double a, long double b))
+FPM_STUB(long double, __divxf3, (long double a, long double b))
+
+FPM_STUB(float, __negsf2, (float a))
+FPM_STUB(double, __negdf2, (double a))
+FPM_STUB(long double, __negtf2, (long double a))
+FPM_STUB(long double, __negxf2, (long double a))
+
+FPM_STUB(double, __extendsfdf2, (float a))
+FPM_STUB(long double, __extendsftf2, (float a))
+FPM_STUB(long double, __extendsfxf2, (float a))
+FPM_STUB(long double, __extenddftf2, (double a))
+FPM_STUB(long double, __extenddfxf2, (double a))
+
+FPM_STUB(double, __truncxfdf2, (long double a))
+FPM_STUB(double, __trunctfdf2, (long double a))
+FPM_STUB(float, __truncxfsf2, (long double a))
+FPM_STUB(float, __trunctfsf2, (long double a))
+FPM_STUB(float, __truncdfsf2, (double a))
+
+FPM_STUB(int, __fixsfsi, (float a))
+FPM_STUB(int, __fixdfsi, (double a))
+FPM_STUB(int, __fixtfsi, (long double a))
+FPM_STUB(int, __fixxfsi, (long double a))
+
+FPM_STUB(long, __fixsfdi, (float a))
+FPM_STUB(long, __fixdfdi, (double a))
+FPM_STUB(long, __fixtfdi, (long double a))
+FPM_STUB(long, __fixxfdi, (long double a))
+
+FPM_STUB(long long, __fixsfti, (float a))
+FPM_STUB(long long, __fixdfti, (double a))
+FPM_STUB(long long, __fixtfti, (long double a))
+FPM_STUB(long long, __fixxfti, (long double a))
+
+FPM_STUB(unsigned int, __fixunssfsi, (float a))
+FPM_STUB(unsigned int, __fixunsdfsi, (double a))
+FPM_STUB(unsigned int, __fixunstfsi, (long double a))
+FPM_STUB(unsigned int, __fixunsxfsi, (long double a))
+
+FPM_STUB(unsigned long, __fixunssfdi, (float a))
+FPM_STUB(unsigned long, __fixunsdfdi, (double a))
+FPM_STUB(unsigned long, __fixunstfdi, (long double a))
+FPM_STUB(unsigned long, __fixunsxfdi, (long double a))
+
+FPM_STUB(unsigned long long, __fixunssfti, (float a))
+FPM_STUB(unsigned long long, __fixunsdfti, (double a))
+FPM_STUB(unsigned long long, __fixunstfti, (long double a))
+FPM_STUB(unsigned long long, __fixunsxfti, (long double a))
+
+FPM_STUB(float, __floatsisf, (int i))
+FPM_STUB(double, __floatsidf, (int i))
+FPM_STUB(long double, __floatsitf, (int i))
+FPM_STUB(long double, __floatsixf, (int i))
+
+FPM_STUB(float, __floatdisf, (long i))
+FPM_STUB(double, __floatdidf, (long i))
+FPM_STUB(long double, __floatditf, (long i))
+FPM_STUB(long double, __floatdixf, (long i))
+
+FPM_STUB(float, __floattisf, (long long i))
+FPM_STUB(double, __floattidf, (long long i))
+FPM_STUB(long double, __floattitf, (long long i))
+FPM_STUB(long double, __floattixf, (long long i))
+
+FPM_STUB(float, __floatunsisf, (unsigned int i))
+FPM_STUB(double, __floatunsidf, (unsigned int i))
+FPM_STUB(long double, __floatunsitf, (unsigned int i))
+FPM_STUB(long double, __floatunsixf, (unsigned int i))
+
+FPM_STUB(float, __floatundisf, (unsigned long i))
+FPM_STUB(double, __floatundidf, (unsigned long i))
+FPM_STUB(long double, __floatunditf, (unsigned long i))
+FPM_STUB(long double, __floatundixf, (unsigned long i))
+
+FPM_STUB(float, __floatuntisf, (unsigned long long i))
+FPM_STUB(double, __floatuntidf, (unsigned long long i))
+FPM_STUB(long double, __floatuntitf, (unsigned long long i))
+FPM_STUB(long double, __floatuntixf, (unsigned long long i))
+
+FPM_NO_STUB(void, __fixsfbitint, (UBILtype *r, int32_t rprec, float a))
+FPM_NO_STUB(void, __fixdfbitint, (UBILtype *r, int32_t rprec, double a))
+FPM_NO_STUB(void, __fixxfbitint, (UBILtype *r, int32_t rprec, __float80 a))
+FPM_NO_STUB(void, __fixtfbitint, (UBILtype *r, int32_t rprec, _Float128 a))
+
+FPM_NO_STUB(float, __floatbitintsf, (UBILtype *i, int32_t iprec))
+FPM_NO_STUB(double, __floatbitintdf, (UBILtype *i, int32_t iprec))
+FPM_NO_STUB(__float80, __floatbitintxf, (UBILtype *i, int32_t iprec))
+FPM_NO_STUB(_Float128, __floatbitinttf, (UBILtype *i, int32_t iprec))
+FPM_NO_STUB(_Float16, __floatbitinthf, (UBILtype *i, int32_t iprec))
+FPM_NO_STUB(__bf16, __floatbitintbf, (UBILtype *i, int32_t iprec))
+
+FPM_STUB(int, __cmpsf2, (float a, float b))
+FPM_STUB(int, __cmpdf2, (double a, double b))
+FPM_STUB(int, __cmptf2, (long double a, long double b))
+
+FPM_STUB(int, __unordsf2, (float a, float b))
+FPM_STUB(int, __unorddf2, (double a, double b))
+FPM_STUB(int, __unordtf2, (long double a, long double b))
+
+FPM_STUB(int, __eqsf2, (float a, float b))
+FPM_STUB(int, __eqdf2, (double a, double b))
+FPM_STUB(int, __eqtf2, (long double a, long double b))
+
+FPM_STUB(int, __nesf2, (float a, float b))
+FPM_STUB(int, __nedf2, (double a, double b))
+FPM_STUB(int, __netf2, (long double a, long double b))
+
+FPM_STUB(int, __gesf2, (float a, float b))
+FPM_STUB(int, __gedf2, (double a, double b))
+FPM_STUB(int, __getf2, (long double a, long double b))
+
+FPM_STUB(int, __ltsf2, (float a, float b))
+FPM_STUB(int, __ltdf2, (double a, double b))
+FPM_STUB(int, __lttf2, (long double a, long double b))
+
+FPM_STUB(int, __lesf2, (float a, float b))
+FPM_STUB(int, __ledf2, (double a, double b))
+FPM_STUB(int, __letf2, (long double a, long double b))
+
+FPM_STUB(int, __gtsf2, (float a, float b))
+FPM_STUB(int, __gtdf2, (double a, double b))
+FPM_STUB(int, __gttf2, (long double a, long double b))
+
+FPM_STUB(float, __powisf2, (float a, int b))
+FPM_STUB(double, __powidf2, (double a, int b))
+FPM_STUB(long double, __powitf2, (long double a, int b))
+FPM_STUB(long double, __powixf2, (long double a, int b))
+
+FPM_STUB(_Complex float, __mulsc3, (float a, float b, float c, float d))
+FPM_STUB(_Complex double, __muldc3, (double a, double b, double c, double d))
+FPM_STUB(long double, __multc3, (long double a, long double b, long double c, long double d))
+FPM_STUB(long double, __mulxc3, (long double a, long double b, long double c, long double d))
+
+FPM_STUB(_Complex float , __divsc3, (float a, float b, float c, float d))
+FPM_STUB(_Complex double , __divdc3, (double a, double b, double c, double d))
+FPM_STUB(long double , __divtc3, (long double a, long double b, long double c, long double d))
+FPM_STUB(long double , __divxc3, (long double a, long double b, long double c, long double d))
+#endif

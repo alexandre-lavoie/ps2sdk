@@ -16,10 +16,10 @@ SLEEP_OBJS = nanosleep.o
 
 SJIS_OBJS = isSpecialSJIS.o isSpecialASCII.o strcpy_ascii.o strcpy_sjis.o
 
-GLUE_OBJS = __dummy_passwd.o __direct_pwd.o __transform_errno.o __transform64_errno.o __fill_stat.o _ps2sdk_ioctl.o compile_time_check.o _open.o _close.o _read.o _write.o \
-	_fstat.o _stat.o lstat.o access.o opendir.o readdir.o rewinddir.o closedir.o _lseek.o lseek64.o chdir.o mkdir.o \
-	rmdir.o _link.o _unlink.o getcwd.o _getpid.o _kill.o _fork.o _wait.o _sbrk.o _gettimeofday.o _times.o ftime.o clock_getres.o clock_gettime.o clock_settime.o \
-	_isatty.o symlink.o truncate.o chmod.o fchmod.o fchmodat.o pathconf.o \
+GLUE_OBJS = __dummy_passwd.o __direct_pwd.o __transform_errno.o __transform64_errno.o __fill_stat.o _ps2sdk_ioctl.o compile_time_check.o open.o close.o read.o write.o \
+	fstat.o stat.o lstat.o access.o opendir.o readdir.o rewinddir.o closedir.o lseek.o lseek64.o chdir.o mkdir.o \
+	rmdir.o link.o unlink.o getcwd.o getpid.o kill.o fork.o wait.o sbrk.o gettimeofday.o times.o ftime.o clock_getres.o clock_gettime.o clock_settime.o \
+	isatty.o symlink.o truncate.o chmod.o fchmod.o fchmodat.o pathconf.o \
 	readlink.o utime.o fchown.o getrandom.o getentropy.o getpwuid.o fsync.o getpwnam.o getuid.o geteuid.o
 
 LOCK_OBJS = __retarget_lock_init.o __retarget_lock_acquire.o __retarget_lock_release.o __retarget_lock_try_acquire.o __retarget_lock_close.o \

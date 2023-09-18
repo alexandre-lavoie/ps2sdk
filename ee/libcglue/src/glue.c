@@ -182,7 +182,7 @@ void compile_time_check() {
 }
 #endif
 
-#ifdef F__open
+#ifdef F_open
 /* Normalize a pathname by removing . and .. components, duplicated /, etc. */
 static char* normalize_path(const char *path_name)
 {
@@ -250,7 +250,7 @@ static int isCdromPath(const char *path)
 
 int (*_ps2sdk_open)(const char*, int, ...) = (void *)fioOpen;
 
-int _open(const char *buf, int flags, ...) {
+int open(const char *buf, int flags, ...) {
 	int iop_flags = 0;
 
 	// newlib frags differ from iop flags
@@ -316,26 +316,26 @@ int _open(const char *buf, int flags, ...) {
 }
 #endif
 
-#ifdef F__close
+#ifdef F_close
 int (*_ps2sdk_close)(int) = fioClose;
 
-int _close(int fd) {
+int close(int fd) {
 	return __transform_errno(_ps2sdk_close(fd));
 }
 #endif
 
-#ifdef F__read
+#ifdef F_read
 int (*_ps2sdk_read)(int, void*, int) = fioRead;
 
-int _read(int fd, void *buf, size_t nbytes) {
+int read(int fd, void *buf, size_t nbytes) {
 	return __transform_errno(_ps2sdk_read(fd, buf, nbytes));
 }
 #endif
 
-#ifdef F__write
+#ifdef F_write
 int (*_ps2sdk_write)(int, const void*, int) = fioWrite;
 
-int _write(int fd, const void *buf, size_t nbytes) {
+int write(int fd, const void *buf, size_t nbytes) {
 	// HACK: stdout and strerr to serial
 	//if ((fd==1) || (fd==2))
 	//	return sio_write((void *)buf, nbytes);
@@ -344,8 +344,8 @@ int _write(int fd, const void *buf, size_t nbytes) {
 }
 #endif
 
-#ifdef F__fstat
-int _fstat(int fd, struct stat *buf) {
+#ifdef F_fstat
+int fstat(int fd, struct stat *buf) {
 	if (fd >=0 && fd <= 1) {
 		// Character device
 		buf->st_mode = S_IFCHR;
@@ -360,10 +360,10 @@ int _fstat(int fd, struct stat *buf) {
 	return 0;
 }
 #else
-int _fstat(int fd, struct stat *buf);
+int fstat(int fd, struct stat *buf);
 #endif
 
-#ifdef F__stat
+#ifdef F_stat
 static int fioGetstatHelper(const char *path, struct stat *buf) {
         io_stat_t fiostat;
 
@@ -379,7 +379,7 @@ static int fioGetstatHelper(const char *path, struct stat *buf) {
 
 int (*_ps2sdk_stat)(const char *path, struct stat *buf) = fioGetstatHelper;
 
-int _stat(const char *path, struct stat *buf) {
+int stat(const char *path, struct stat *buf) {
     return __transform_errno(_ps2sdk_stat(path, buf));
 }
 #endif
@@ -507,10 +507,10 @@ int closedir(DIR *dir)
 }
 #endif
 
-#ifdef F__lseek
+#ifdef F_lseek
 int (*_ps2sdk_lseek)(int, int, int) = fioLseek;
 
-off_t _lseek(int fd, off_t offset, int whence)
+off_t lseek(int fd, off_t offset, int whence)
 {
 	return __transform_errno(_ps2sdk_lseek(fd, offset, whence));
 }
@@ -558,7 +558,7 @@ int rmdir(const char *path) {
 }
 #endif
 
-#ifdef F__link
+#ifdef F_link
 int fioRename(const char *old, const char *new) {
 	(void)old;
 	(void)new;
@@ -568,15 +568,15 @@ int fioRename(const char *old, const char *new) {
 
 int (*_ps2sdk_rename)(const char*, const char*) = fioRename;
 
-int _link(const char *old, const char *new) {
+int link(const char *old, const char *new) {
     return __transform_errno(_ps2sdk_rename(old, new));
 }
 #endif
 
-#ifdef F__unlink
+#ifdef F_unlink
 int (*_ps2sdk_remove)(const char*) = fioRemove;
 
-int _unlink(const char *path) {
+int unlink(const char *path) {
     return __transform_errno(_ps2sdk_remove(path));
 }
 #endif
@@ -588,14 +588,14 @@ char *getcwd(char *buf, size_t len) {
 }
 #endif
 
-#ifdef F__getpid
-int _getpid(void) {
+#ifdef F_getpid
+int getpid(void) {
 	return GetThreadId();
 }
 #endif
 
-#ifdef F__kill
-int _kill(int pid, int sig) {
+#ifdef F_kill
+int kill(int pid, int sig) {
 #if 0 // needs to be tested first
 	// null signal: do error checking on pid only
 	if (sig == 0)
@@ -614,22 +614,22 @@ int _kill(int pid, int sig) {
 }
 #endif
 
-#ifdef F__fork
-pid_t _fork(void) {
+#ifdef F_fork
+pid_t fork(void) {
 	errno = ENOSYS;
 	return (pid_t) -1; /* not supported */
 }
 #endif
 
-#ifdef F__wait
-pid_t _wait(int *unused) {
+#ifdef F_wait
+pid_t wait(int *unused) {
 	errno = ENOSYS;
 	return (pid_t) -1; /* not supported */
 }
 #endif
 
-#ifdef F__sbrk
-void * _sbrk(size_t incr) {
+#ifdef F_sbrk
+void * sbrk(ptrdiff_t incr) {
 	static void * _heap_ptr = &_end;
 	void *mp, *ret = (void *)-1;
 
@@ -647,9 +647,11 @@ void * _sbrk(size_t incr) {
 }
 #endif
 
-#ifdef F__gettimeofday
-int _gettimeofday(struct timeval *tv, struct timezone *tz)
+#ifdef F_gettimeofday
+int gettimeofday(struct timeval *__restrict tv, void *__restrict tzi)
 {
+	struct timezone * tz = (struct timezone *)tzi;
+
 	if (tv == NULL)
 	{
 		errno = EFAULT;
@@ -675,8 +677,8 @@ int _gettimeofday(struct timeval *tv, struct timezone *tz)
 }
 #endif
 
-#ifdef F__times
-clock_t _times(struct tms *buffer) {
+#ifdef F_times
+clock_t times(struct tms *buffer) {
 	clock_t clk = GetTimerSystemTime() / (kBUSCLK / CLOCKS_PER_SEC);
 
 	if (buffer != NULL) {
@@ -856,8 +858,8 @@ int getentropy(void *buf, size_t buflen)
 }
 #endif
 
-#ifdef F__isatty
-int _isatty(int fd)
+#ifdef F_isatty
+int isatty(int fd)
 {
 	errno = ENOSYS;
 	return -1; /* not supported */
